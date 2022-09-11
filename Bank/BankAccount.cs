@@ -12,6 +12,7 @@ namespace BankAccountNS
     {
         public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
         public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
+        public const string CreditAmountLessThanZeroMessage = "Credit amount is less than zero";
 
         private readonly string m_customerName;
         private double m_balance;
@@ -35,12 +36,12 @@ namespace BankAccountNS
         {
             if (amount > m_balance)
             {
-                throw new System.ArgumentOutOfRangeException("amount", amount, DebitAmountExceedsBalanceMessage);
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountExceedsBalanceMessage);
             }
 
             if (amount < 0)
             {
-                throw new System.ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
 
             }
 
@@ -51,7 +52,7 @@ namespace BankAccountNS
         {
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException("amount");
+                throw new ArgumentOutOfRangeException("amount", amount, CreditAmountLessThanZeroMessage);
             }
 
             m_balance += amount;
@@ -63,7 +64,7 @@ namespace BankAccountNS
             ba.Credit(5.77);
             ba.Debit(11.22);
 
-            Console.WriteLine("Current balance is ${0}", ba.Balance);
+            Console.WriteLine($"Current balance is ${ba.Balance}");
         }
     }
 }
